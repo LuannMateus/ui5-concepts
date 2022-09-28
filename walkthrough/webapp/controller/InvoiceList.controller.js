@@ -37,6 +37,12 @@ sap.ui.define(
 
         biding.filter(filter);
       },
+
+      onPress: function (event) {
+        const router = this.getOwnerComponent().getRouter();
+
+        router.navTo("detail");
+      },
     });
   }
 );

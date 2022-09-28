@@ -10,18 +10,21 @@ sap.ui.define(
       },
 
       init: function () {
+        // call the init function of the parent
+        UIComponent.prototype.init.apply(this, arguments);
+
         // set data model
-        var oData = {
+        const data = {
           recipient: {
             name: "World",
           },
         };
 
-        var oModel = new JSONModel(oData);
-        this.setModel(oModel);
+        const model = new JSONModel(data);
 
-        // call the init function of the parent
-        UIComponent.prototype.init.apply(this, arguments);
+        this.setModel(model);
+
+        this.getRouter().initialize();
       },
 
       destroy: function () {
