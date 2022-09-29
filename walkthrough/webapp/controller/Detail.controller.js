@@ -3,12 +3,18 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel",
   ],
-  function (Controller, History, MessageToast) {
+  function (Controller, History, MessageToast, JSONModel) {
     "use strict";
     return Controller.extend("sap.ui.demo.walkthrough.controller.Detail", {
       onInit: function () {
         this.byId("rating").reset();
+
+        const viewModel = new JSONModel({
+          currency: "EUR",
+        });
+        this.getView().setModel(viewModel, "view");
 
         const router = this.getOwnerComponent().getRouter();
 
