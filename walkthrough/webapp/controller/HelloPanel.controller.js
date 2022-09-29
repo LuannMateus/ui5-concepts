@@ -1,6 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/m/MessageToast", "sap/ui/core/Fragment"],
-  function (Controller, MessageToast, Fragment) {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageToast",
+    "sap/ui/core/syncStyleClass",
+  ],
+  function (Controller, MessageToast, syncStyleClass) {
     "use strict";
 
     return Controller.extend("sap.ui.demo.walkthrough.controller.HelloPanel", {
@@ -15,11 +19,22 @@ sap.ui.define(
         // show message
         MessageToast.show(sMsg);
       },
+
       onOpenDialog: function () {
         if (!this.dialog) {
           this.dialog = this.loadFragment({
             name: "sap.ui.demo.walkthrough.view.HelloDialog",
-          });
+          }).then(
+            function (dialog) {
+              syncStyleClass(
+                this.getOwnerComponent().getContentDensityClass(),
+                this.getView(),
+                dialog
+              );
+
+              return dialog;
+            }.bind(this)
+          );
         }
 
         this.dialog.then(function (dialog) {
